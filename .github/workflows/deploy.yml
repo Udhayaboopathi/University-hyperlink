@@ -3,7 +3,7 @@ name: Deploy NextJS
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
@@ -13,11 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Sync files to server
+      - name: Copy files
         run: |
           rsync -av --delete ./ /var/www/nextjs-app/
 
-      - name: Build image & restart container
+      - name: Build & Start Container
         run: |
           cd /var/www/nextjs-app
           docker compose down || true
