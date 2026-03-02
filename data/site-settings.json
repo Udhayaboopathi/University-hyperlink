@@ -1,0 +1,31 @@
+{
+  "university_tamil_name": "பெரியார் பல்கலைக்கழகம்",
+  "university_english_name": "PERIYAR UNIVERSITY",
+  "ranking_text": "State University - NAAC A++ Grade - NIRF Rank 94\r\nState Public University Rank 40 - SDG Institutions Rank Band: 11-50",
+  "address": "Salem - 636011, Tamil Nadu, India",
+  "logo": "/uploads/logo-1772425408863.png",
+  "right_image": "/uploads/right_image-1772427737743.jpg",
+  "exam_title": "Periyar University Student Feedback ",
+  "session_open_time": "09:00",
+  "exam_start_time": "09:30",
+  "exam_end_time": "11:30",
+  "sections": [
+    {
+      "title": "Periyar University Student Feedback ",
+      "start_time": "09:00",
+      "end_time": "17:00",
+      "links": [
+        {
+          "label": "Student Feedback Questionnaire 2025-26",
+          "url": " https://forms.gle/iCv4ey9hUdNP6w4j9"
+        },
+        {
+          "label": "Student Satisfaction Survey- 2025 -26",
+          "url": "https://forms.gle/kaNvFoQX8sMu3izu9"
+        }
+      ],
+      "is_open": true,
+      "use_schedule": false
+    }
+  ]
+}
