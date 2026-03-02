@@ -1,28 +1,9 @@
 version: "3.9"
 
 services:
-  university_app:
-    image: university_app:latest # built by GitHub Actions on this machine
-    container_name: university_app
-    restart: unless-stopped
+  nextjs-app:
+    container_name: nextjs-app
+    build: .
+    restart: always
     ports:
-      - "3000:3000" # change left side if you need a different host port
-    environment:
-      - NODE_ENV=production
-      - NEXT_TELEMETRY_DISABLED=1
-    volumes:
-      # Persist site settings JSON across rebuilds/restarts
-      - ./data:/app/data
-      # Persist uploaded logo / images across rebuilds/restarts
-      - ./public/uploads:/app/public/uploads
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/settings"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 20s
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
+      - "80:3000"
