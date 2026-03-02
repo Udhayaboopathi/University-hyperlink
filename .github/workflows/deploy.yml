@@ -1,4 +1,4 @@
-name: Deploy NextJS App
+name: Deploy NextJS
 
 on:
   push:
@@ -13,17 +13,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create project directory
-        run: |
-          mkdir -p /var/www/nextjs-app
-
-      - name: Copy project files
+      - name: Sync files to server
         run: |
           rsync -av --delete ./ /var/www/nextjs-app/
 
-      - name: Build and run container
+      - name: Build image & restart container
         run: |
           cd /var/www/nextjs-app
-          docker compose down
+          docker compose down || true
           docker compose build
           docker compose up -d
