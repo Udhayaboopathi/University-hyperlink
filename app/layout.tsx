@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "University Exam Portal",
-  description: "University Ph.D. Entrance Exam Information Portal",
+  title: "Periyar University Hyperlink Portal",
+  description: "Periyar University Hyperlink Portal",
 };
 
 export default function RootLayout({

@@ -27,5 +27,6 @@
       "is_open": true,
       "use_schedule": false
     }
-  ]
+  ],
+  "admin_password": "admin@123"
 }

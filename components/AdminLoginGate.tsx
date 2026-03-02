@@ -4,7 +4,6 @@ import { useState, useEffect, ReactNode } from "react";
 import Alert from "@/components/Alert";
 
 const STORAGE_KEY = "admin_auth";
-const CORRECT_PASSWORD = "admin@123";
 
 export default function AdminLoginGate({ children }: { children: ReactNode }) {
   const [authed, setAuthed] = useState(false);
@@ -12,16 +11,28 @@ export default function AdminLoginGate({ children }: { children: ReactNode }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showPw, setShowPw] = useState(false);
+  const [correctPassword, setCorrectPassword] = useState("admin@123");
 
   useEffect(() => {
-    const val = sessionStorage.getItem(STORAGE_KEY);
-    if (val === "yes") setAuthed(true);
-    setChecked(true);
+    // Load password from settings JSON via API
+    fetch("/api/settings")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.admin_password) setCorrectPassword(data.admin_password);
+      })
+      .catch(() => {
+        /* fallback to default */
+      })
+      .finally(() => {
+        const val = sessionStorage.getItem(STORAGE_KEY);
+        if (val === "yes") setAuthed(true);
+        setChecked(true);
+      });
   }, []);
 
   function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    if (password === CORRECT_PASSWORD) {
+    if (password === correctPassword) {
       sessionStorage.setItem(STORAGE_KEY, "yes");
       setAuthed(true);
       setError("");

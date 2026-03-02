@@ -52,6 +52,7 @@ export async function POST(request: NextRequest) {
         "session_open_time",
         "exam_start_time",
         "exam_end_time",
+        "admin_password",
       ];
 
       for (const field of textFields) {

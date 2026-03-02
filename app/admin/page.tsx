@@ -30,6 +30,7 @@ interface Settings {
   exam_start_time: string;
   exam_end_time: string;
   sections: Section[];
+  admin_password: string;
 }
 
 function getSettings(): Settings {

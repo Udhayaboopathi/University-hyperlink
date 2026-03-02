@@ -29,6 +29,8 @@ interface Settings {
   exam_start_time: string;
   exam_end_time: string;
   sections: Section[];
+  admin_password: string;
+  _showAdminPw?: boolean; // UI-only, not persisted
 }
 
 interface AdminFormProps {
@@ -84,6 +86,7 @@ function SectionCard({
 export default function AdminForm({ initial }: AdminFormProps) {
   const [form, setForm] = useState<Settings>({
     ...initial,
+    admin_password: initial.admin_password ?? "admin@123",
     sections: (initial.sections ?? []).map((s) => ({
       ...s,
       is_open: s.is_open ?? true,
@@ -213,6 +216,7 @@ export default function AdminForm({ initial }: AdminFormProps) {
       fd.append("exam_start_time", form.exam_start_time);
       fd.append("exam_end_time", form.exam_end_time);
       fd.append("sections", JSON.stringify(form.sections));
+      fd.append("admin_password", form.admin_password);
 
       if (logoRef.current?.files?.[0])
         fd.append("logo", logoRef.current.files[0]);
@@ -340,6 +344,72 @@ export default function AdminForm({ initial }: AdminFormProps) {
           className={inputCls}
           placeholder="e.g. Periyar University Student Feedback"
         />
+      </SectionCard>
+
+      {/* Admin Password */}
+      <SectionCard label="Admin Password">
+        <p className="text-xs mb-4" style={{ color: "#64748b" }}>
+          Change the admin login password. Takes effect on the next login.
+        </p>
+        <FieldLabel>New Password</FieldLabel>
+        <div className="relative">
+          <input
+            type={form._showAdminPw ? "text" : "password"}
+            name="admin_password"
+            value={form.admin_password}
+            onChange={handleChange}
+            className={inputCls}
+            placeholder="Enter new password"
+            autoComplete="new-password"
+          />
+          <button
+            type="button"
+            onClick={() =>
+              setForm((prev) => ({
+                ...prev,
+                _showAdminPw: !prev._showAdminPw,
+              }))
+            }
+            className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-gray-600 cursor-pointer"
+            tabIndex={-1}
+          >
+            {form._showAdminPw ? (
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                />
+              </svg>
+            )}
+          </button>
+        </div>
       </SectionCard>
 
       {/* Sections */}
