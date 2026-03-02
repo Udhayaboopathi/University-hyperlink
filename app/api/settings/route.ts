@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs";
+import {
+  readFileSync,
+  writeFileSync,
+  mkdirSync,
+  existsSync,
+  unlinkSync,
+} from "fs";
 import path from "path";
 
 const DATA_FILE = path.join(process.cwd(), "data", "site-settings.json");
@@ -77,6 +83,19 @@ export async function POST(request: NextRequest) {
       for (const field of fileFields) {
         const file = formData.get(field) as File | null;
         if (file && file.size > 0) {
+          // delete old file if it exists
+          const oldPath = settings[field] as string | undefined;
+          if (oldPath) {
+            const oldFilePath = path.join(process.cwd(), "public", oldPath);
+            if (existsSync(oldFilePath)) {
+              try {
+                unlinkSync(oldFilePath);
+              } catch {
+                // ignore deletion errors
+              }
+            }
+          }
+
           const bytes = await file.arrayBuffer();
           const buffer = Buffer.from(bytes);
           const safeName = `${field}-${Date.now()}${path.extname(file.name)}`;
