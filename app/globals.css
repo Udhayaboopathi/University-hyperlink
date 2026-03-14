@@ -3,6 +3,8 @@
 :root {
   --background: #f3f4f6;
   --foreground: #171717;
+  --font-geist-sans: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font-geist-mono: "Cascadia Code", "Consolas", "Courier New", monospace;
 }
 
 @theme inline {
