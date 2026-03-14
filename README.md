@@ -4,7 +4,7 @@ A modern, responsive exam schedule portal built for Periyar University. It displ
 
 --- 
  
-## Features
+## Features 
 
 - **Live Exam Schedule** — Displays sections, sessions, and exam timing using Indian Standard Time (IST) regardless of the visitor's device timezone
 - **Countdown Timer** — Real-time countdown to the next exam session
